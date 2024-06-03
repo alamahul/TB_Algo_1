@@ -1,0 +1,1 @@
+linked_list.hapus_di_depan()
