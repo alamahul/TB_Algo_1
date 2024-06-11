@@ -3,14 +3,47 @@ from tkinter import *
 from tkinter import messagebox
 import random,os,tempfile,smtplib
 
-import DoublyLinkedList_1 as DBL
+import DoublyLinkedList as DBL
 
 
-#functionality part
+
+ProdukList = DBL.DoublyLinkedList()
+
+# Penambahan Kategori
+ProdukList.tambah_kategori('Minuman')
+ProdukList.tambah_kategori('BahanBaku')
+ProdukList.tambah_kategori('Kosmetik')
+# End
+
+# Penambahan Barang
+# Kategori Kosmetik
+ProdukList.tambah_awal_list('Autan', 1000, 'Kosmetik')
+ProdukList.tambah_awal_list('Skincare', 15000, 'Kosmetik')
+ProdukList.tambah_awal_list('Sampo', 5000, 'Kosmetik')
+ProdukList.tambah_awal_list('Parfum', 7000, 'Kosmetik')
+ProdukList.tambah_awal_list('Sabun Wajah', 10000, 'Kosmetik')
+ProdukList.tambah_awal_list('Sabun Mandi', 3000, 'Kosmetik')
+# Kategori BahanBaku
+ProdukList.tambah_tengah_list_berdasarkan_kategori('BahanBaku', 'Teh', 3000, 'BahanBaku')
+ProdukList.tambah_tengah_list_berdasarkan_kategori('BahanBaku', 'Gula', 10000, 'BahanBaku')
+ProdukList.tambah_tengah_list_berdasarkan_kategori('BahanBaku', 'Gandum', 20000, 'BahanBaku')
+ProdukList.tambah_tengah_list_berdasarkan_kategori('BahanBaku', 'Bumbu', 5000, 'BahanBaku')
+ProdukList.tambah_tengah_list_berdasarkan_kategori('BahanBaku', 'Minyak', 30000, 'BahanBaku')
+ProdukList.tambah_tengah_list_berdasarkan_kategori('BahanBaku', 'Nasi', 25000, 'BahanBaku')
+# Kategori Minuman
+ProdukList.tambah_akhir_list('Fanta', 25000, 'Minuman')
+ProdukList.tambah_akhir_list('Power F', 1500, 'Minuman')
+ProdukList.tambah_akhir_list('Sprite', 5000, 'Minuman')
+ProdukList.tambah_akhir_list('Pepsi', 2000, 'Minuman')
+ProdukList.tambah_akhir_list('Coca Cola', 10000, 'Minuman')
+ProdukList.tambah_akhir_list('Kratindeng', 3000, 'Minuman')
+# End
+
+# ProdukList.cetak_list()
 
 if not os.path.exists(f'{const.PATHPARENTFILE}/Tagihan'):
     os.mkdir(f'{const.PATHPARENTFILE}/Tagihan')
-
+#functionality part
 def send_email():
     def send_email():
         try:
@@ -78,6 +111,29 @@ def send_email():
         root.mainloop()
 
 def clear():
+    # Hapus Semua List Produk
+    # Kategori Kosmetik
+    ProdukList.hapusPesanan('Sabun Mandi')
+    ProdukList.hapusPesanan('Sabun Wajah')
+    ProdukList.hapusPesanan('Parfum')
+    ProdukList.hapusPesanan('Sampo')
+    ProdukList.hapusPesanan('Skincare')
+    ProdukList.hapusPesanan('Autan')
+    # Kategori Kosmetik
+    ProdukList.hapusPesanan('Nasi')
+    ProdukList.hapusPesanan('Minyak')
+    ProdukList.hapusPesanan('Bumbu')
+    ProdukList.hapusPesanan('Gandum')
+    ProdukList.hapusPesanan('Gula')
+    ProdukList.hapusPesanan('Teh')
+    # Kategori Minuman
+    ProdukList.hapusPesanan('Fanta')
+    ProdukList.hapusPesanan('Power F')
+    ProdukList.hapusPesanan('Sprite')
+    ProdukList.hapusPesanan('Pepsi')
+    ProdukList.hapusPesanan('Coca Cola')
+    ProdukList.hapusPesanan('Kratindeng')
+    # End
     bathsoapEntry.delete(0,END)
     facescreamEntry.delete(0,END)
     hairsprayEntry.delete(0,END)
@@ -107,6 +163,36 @@ def clear():
     grocertaxEntry.delete(0,END)
     drinktaxEntry.delete(0,END)
     
+    # Penambahan angka nol
+    bathsoapEntry.insert(END, 0)
+    facescreamEntry.insert(END, 0)
+    hairsprayEntry.insert(END, 0)
+    bodylotionEntry.insert(END, 0)
+    fashwashEntry.insert(END, 0)
+    hairgelEntry.insert(END, 0)
+
+    riceEntry.insert(END, 0)
+    oilEntry.insert(END, 0)
+    gandumEntry.insert(END, 0)
+    bumbuEntry.insert(END, 0)
+    gulaEntry.insert(END, 0)
+    tehEntry.insert(END, 0)
+
+    fantaEntry.insert(END, 0)
+    pepsiEntry.insert(END, 0)
+    powerfEntry.insert(END, 0)
+    spriteEntry.insert(END, 0)
+    cocacolaEntry.insert(END, 0)
+    kratindengEntry.insert(END, 0)
+
+    cosmenticpriceEntry.insert(END, 0)
+    grocerpriceEntry.insert(END, 0)
+    drinkpriceEntry.insert(END, 0)
+
+    cosmentictaxEntry.insert(END, 0)
+    grocertaxEntry.insert(END, 0)
+    drinktaxEntry.insert(END, 0)
+
     nameEntry.delete(0, END)
     phoneEntry.delete(0, END)
     billnumberEntry.delete(0, END)
@@ -157,61 +243,203 @@ def set_text(entry, text):
     entry.insert(0,text)
     return
 
+
+
+
 def total():
-    global soapprice,facescreamprice,fashwashprice,hairsprayprice,hairgelprice,bodylotionprice
-    global riceprice,oilprice,bumbuprice,gandumprice,gulaprice,tehprice
-    global fantaprice,powerfprice,spriteprice,pepsiprice,cocacolaprice,kratindengprice
     global totalcosmeticprice,totalgroceryprice,totalcolddrinkprice
     global totalcosmetictax, totalgrocerytax, totalcolddrinktax
     
+    # Tambah diawal/Akhir
+    
+    # cosmeticslist.display()
+    # Hapus ditengah
+
     # cosmetic price calculation
+    # Penambahan variable harga
+    HargaKosmetik1 = 0
+    HargaKosmetik2 = 0
+    HargaKosmetik3 = 0
+    HargaKosmetik4 = 0
+    HargaKosmetik5 = 0
+    HargaKosmetik6 = 0
     
+    # Masukan/Pengahapusan ke Produk List  
+    if int(bathsoapEntry.get()) != 0:
+        ProdukList.pesanan('Sabun Mandi', int(bathsoapEntry.get()))
+        HargaKosmetik1 += ProdukList.detailPesanan('Sabun Mandi', 'Harga')*ProdukList.detailPesanan('Sabun Mandi', 'Jumlah')
+    else:
+        ProdukList.hapusPesanan('Sabun Mandi')
+        HargaKosmetik1 = 0
+    if int(facescreamEntry.get()) != 0:
+        ProdukList.pesanan('Sabun Wajah', int(facescreamEntry.get()))
+        HargaKosmetik2 += ProdukList.detailPesanan('Sabun Wajah', 'Harga')*ProdukList.detailPesanan('Sabun Wajah', 'Jumlah')
+    else:
+        ProdukList.hapusPesanan('Sabun Wajah')
+        HargaKosmetik2 = 0
+    if int(fashwashEntry.get()) != 0:
+        ProdukList.pesanan('Parfum', int(fashwashEntry.get()))
+        HargaKosmetik3 += ProdukList.detailPesanan('Parfum', 'Harga')*ProdukList.detailPesanan('Parfum', 'Jumlah')
+    else:
+        ProdukList.hapusPesanan('Parfum')
+        HargaKosmetik3 = 0
+    if int(hairsprayEntry.get()) != 0:
+        ProdukList.pesanan('Sampo', int(hairsprayEntry.get()))
+        HargaKosmetik4 += ProdukList.detailPesanan('Sampo', 'Harga')*ProdukList.detailPesanan('Sampo', 'Jumlah')
+    else:
+        ProdukList.hapusPesanan('Sampo')
+        HargaKosmetik4 = 0
+    if int(hairgelEntry.get()) != 0:
+        ProdukList.pesanan('Skincare', int(hairgelEntry.get()))
+        HargaKosmetik5 += ProdukList.detailPesanan('Skincare', 'Harga')*ProdukList.detailPesanan('Skincare', 'Jumlah')
+    else:
+        ProdukList.hapusPesanan('Skincare')
+        HargaKosmetik5 = 0
+    if int(bodylotionEntry.get()) != 0:
+        ProdukList.pesanan('Autan', int(bodylotionEntry.get()))
+        HargaKosmetik6 += ProdukList.detailPesanan('Autan', 'Harga')*ProdukList.detailPesanan('Autan', 'Jumlah')
+    else:
+        ProdukList.hapusPesanan('Autan')
+        HargaKosmetik6 = 0
     
 
-    soapprice=int(bathsoapEntry.get())*3000
-    facescreamprice=int(facescreamEntry.get())*10000
-    fashwashprice=int(fashwashEntry.get())*7000
-    hairsprayprice=int(hairsprayEntry.get())*5000
-    hairgelprice=int(hairgelEntry.get())*15000
-    bodylotionprice=int(bodylotionEntry.get())*1000
+
+    # print('List Pesanan')
+    # ProdukList.keranjang()
     
-    
+    # soapprice=int(bathsoapEntry.get())*3000
+    # facescreamprice=int(facescreamEntry.get())*10000
+    # fashwashprice=int(fashwashEntry.get())*7000
+    # hairsprayprice=int(hairsprayEntry.get())*5000
+    # hairgelprice=int(hairgelEntry.get())*15000
+    # bodylotionprice=int(bodylotionEntry.get())*1000
+     
     
 
-    
-    
-    
-    totalcosmeticprice=soapprice+facescreamprice+fashwashprice+hairsprayprice+hairgelprice+bodylotionprice
+    totalcosmeticprice=HargaKosmetik1+HargaKosmetik2+HargaKosmetik3+HargaKosmetik4+HargaKosmetik5+HargaKosmetik6
     totalcosmetictax = totalcosmeticprice * 0.25
     set_text(cosmentictaxEntry, f'Rp. {totalcosmetictax}')
     set_text(cosmenticpriceEntry, f'Rp. {totalcosmeticprice}')
 
 
-    # grocery price calcutaion
-    riceprice = int(riceEntry.get())*25000
-    oilprice = int(oilEntry.get())*30000
-    bumbuprice = int(bumbuEntry.get())*5000
-    gandumprice = int(gandumEntry.get())*20000
-    gulaprice = int(gulaEntry.get())*10000
-    tehprice = int(tehEntry.get())*3000
+    # # grocery price calcutaion
+    # Penambahan variable harga
+    HargaBahanBaku1 = 0
+    HargaBahanBaku2 = 0
+    HargaBahanBaku3 = 0
+    HargaBahanBaku4 = 0
+    HargaBahanBaku5 = 0
+    HargaBahanBaku6 = 0
+    
+    # Masukan/Pengahapusan ke Produk List  
+    if int(riceEntry.get()) != 0:
+        ProdukList.pesanan('Nasi', int(riceEntry.get()))
+        HargaBahanBaku1 += ProdukList.detailPesanan('Nasi', 'Harga')*ProdukList.detailPesanan('Nasi', 'Jumlah')
+    else:
+        ProdukList.hapusPesanan('Nasi')
+        HargaBahanBaku1 = 0
+    if int(oilEntry.get()) != 0:
+        ProdukList.pesanan('Minyak', int(oilEntry.get()))
+        HargaBahanBaku2 += ProdukList.detailPesanan('Minyak', 'Harga')*ProdukList.detailPesanan('Minyak', 'Jumlah')
+    else:
+        ProdukList.hapusPesanan('Minyak')
+        HargaBahanBaku2 = 0
+    if int(bumbuEntry.get()) != 0:
+        ProdukList.pesanan('Bumbu', int(bumbuEntry.get()))
+        HargaBahanBaku3 += ProdukList.detailPesanan('Bumbu', 'Harga')*ProdukList.detailPesanan('Bumbu', 'Jumlah')
+    else:
+        ProdukList.hapusPesanan('Bumbu')
+        HargaBahanBaku3 = 0
+    if int(gandumEntry.get()) != 0:
+        ProdukList.pesanan('Gandum', int(gandumEntry.get()))
+        HargaBahanBaku4 += ProdukList.detailPesanan('Gandum', 'Harga')*ProdukList.detailPesanan('Gandum', 'Jumlah')
+    else:
+        ProdukList.hapusPesanan('Gandum')
+        HargaBahanBaku4 = 0
+    if int(gulaEntry.get()) != 0:
+        ProdukList.pesanan('Gula', int(gulaEntry.get()))
+        HargaBahanBaku5 += ProdukList.detailPesanan('Gula', 'Harga')*ProdukList.detailPesanan('Gula', 'Jumlah')
+    else:
+        ProdukList.hapusPesanan('Gula')
+        HargaBahanBaku5 = 0
+    if int(tehEntry.get()) != 0:
+        ProdukList.pesanan('Teh', int(tehEntry.get()))
+        HargaBahanBaku6 += ProdukList.detailPesanan('Teh', 'Harga')*ProdukList.detailPesanan('Teh', 'Jumlah')
+    else:
+        ProdukList.hapusPesanan('Teh')
+        HargaBahanBaku6 = 0
 
-    totalgroceryprice = riceprice + oilprice + bumbuprice + gandumprice + gulaprice + tehprice
-    totalgrocerytax = totalgroceryprice * 0.15
+    # riceprice = int(riceEntry.get())*25000
+    # oilprice = int(oilEntry.get())*30000
+    # bumbuprice = int(bumbuEntry.get())*5000
+    # gandumprice = int(gandumEntry.get())*20000
+    # gulaprice = int(gulaEntry.get())*10000
+    # tehprice = int(tehEntry.get())*3000
+
+    totalgroceryprice = HargaBahanBaku1 + HargaBahanBaku2 + HargaBahanBaku3 + HargaBahanBaku4 + HargaBahanBaku5 + HargaBahanBaku6
+    totalgrocerytax = totalgroceryprice * 0.10
     set_text(grocertaxEntry, f'Rp. {totalgrocerytax}')
     set_text(grocerpriceEntry, f'Rp. {totalgroceryprice}')
 
-    # cold drink price calcutaion
-    fantaprice = int(fantaEntry.get())*25000
-    powerfprice = int(powerfEntry.get())*30000
-    spriteprice = int(spriteEntry.get())*5000
-    pepsiprice = int(pepsiEntry.get())*20000
-    cocacolaprice = int(cocacolaEntry.get())*10000
-    kratindengprice = int(kratindengEntry.get())*3000
+    # # cold drink price calcutaion
+    # Penambahan variable harga
+    HargaMinuman1 = 0
+    HargaMinuman2 = 0
+    HargaMinuman3 = 0
+    HargaMinuman4 = 0
+    HargaMinuman5 = 0
+    HargaMinuman6 = 0
+    
+    # Masukan/Pengahapusan ke Produk List  
+    if int(fantaEntry.get()) != 0:
+        ProdukList.pesanan('Fanta', int(fantaEntry.get()))
+        HargaMinuman1 += ProdukList.detailPesanan('Fanta', 'Harga')*ProdukList.detailPesanan('Fanta', 'Jumlah')
+    else:
+        ProdukList.hapusPesanan('Fanta')
+        HargaMinuman1 = 0
+    if int(powerfEntry.get()) != 0:
+        ProdukList.pesanan('Power F', int(powerfEntry.get()))
+        HargaMinuman2 += ProdukList.detailPesanan('Power F', 'Harga')*ProdukList.detailPesanan('Power F', 'Jumlah')
+    else:
+        ProdukList.hapusPesanan('Power F')
+        HargaMinuman2 = 0
+    if int(spriteEntry.get()) != 0:
+        ProdukList.pesanan('Sprite', int(spriteEntry.get()))
+        HargaMinuman3 += ProdukList.detailPesanan('Sprite', 'Harga')*ProdukList.detailPesanan('Sprite', 'Jumlah')
+    else:
+        ProdukList.hapusPesanan('Sprite')
+        HargaMinuman3 = 0
+    if int(pepsiEntry.get()) != 0:
+        ProdukList.pesanan('Pepsi', int(pepsiEntry.get()))
+        HargaMinuman4 += ProdukList.detailPesanan('Pepsi', 'Harga')*ProdukList.detailPesanan('Pepsi', 'Jumlah')
+    else:
+        ProdukList.hapusPesanan('Pepsi')
+        HargaMinuman4 = 0
+    if int(cocacolaEntry.get()) != 0:
+        ProdukList.pesanan('Coca Cola', int(cocacolaEntry.get()))
+        HargaMinuman5 += ProdukList.detailPesanan('Coca Cola', 'Harga')*ProdukList.detailPesanan('Coca Cola', 'Jumlah')
+    else:
+        ProdukList.hapusPesanan('Coca Cola')
+        HargaMinuman5 = 0
+    if int(kratindengEntry.get()) != 0:
+        ProdukList.pesanan('Kratindeng', int(kratindengEntry.get()))
+        HargaMinuman6 += ProdukList.detailPesanan('Kratindeng', 'Harga')*ProdukList.detailPesanan('Kratindeng', 'Jumlah')
+    else:
+        ProdukList.hapusPesanan('Kratindeng')
+        HargaMinuman6 = 0
 
-    totalcolddrinkprice = fantaprice + powerfprice + spriteprice + pepsiprice + cocacolaprice + kratindengprice
+    # fantaprice = int(fantaEntry.get())*25000
+    # powerfprice = int(powerfEntry.get())*30000
+    # spriteprice = int(spriteEntry.get())*5000
+    # pepsiprice = int(pepsiEntry.get())*20000
+    # cocacolaprice = int(cocacolaEntry.get())*10000
+    # kratindengprice = int(kratindengEntry.get())*3000
+
+    totalcolddrinkprice = HargaMinuman1 + HargaMinuman2 + HargaMinuman3 + HargaMinuman4 + HargaMinuman5 + HargaMinuman6
     totalcolddrinktax = totalcolddrinkprice * 0.1
     set_text(drinktaxEntry, f'Rp. {totalcolddrinktax}')
     set_text(drinkpriceEntry, f'Rp. {totalcolddrinkprice}')
+
 
  
 def bill_area():
@@ -232,46 +460,83 @@ def bill_area():
 
 
         #Cosmetic
-        if soapprice != 0:
-            textarea.insert(END, f' Sabun Mandi     \t\t\t\t{bathsoapEntry.get()}\t\t\tRp. {soapprice}\n')
-        if facescreamprice != 0 :
-            textarea.insert(END, f' Sabun Wajah     \t\t\t\t{facescreamEntry.get()}\t\t\tRp. {facescreamprice}\n')
-        if fashwashprice != 0 :
-            textarea.insert(END, f' Parfum          \t\t\t\t{fashwashEntry.get()}\t\t\tRp. {fashwashprice}\n')
-        if hairsprayprice != 0 :
-            textarea.insert(END, f' Sampo           \t\t\t\t{hairsprayEntry.get()}\t\t\tRp. {hairsprayprice}\n')
-        if hairgelprice != 0 :
-            textarea.insert(END, f' Skincare        \t\t\t\t{hairgelEntry.get()}\t\t\tRp. {hairgelprice}\n')
-        if bodylotionprice != 0 :
-            textarea.insert(END, f' Autan           \t\t\t\t{bodylotionEntry.get()}\t\t\tRp. {bodylotionprice}\n')
+        if ProdukList.cekPesanan('Sabun Mandi') == True:
+            textarea.insert(END, f' Sabun Mandi     \t\t\t\t{ProdukList.detailPesanan("Sabun Mandi", "Jumlah")}\t\t\tRp. {ProdukList.detailPesanan("Sabun Mandi", "Harga")}\n')
+        if ProdukList.cekPesanan('Sabun Wajah') == True:
+            textarea.insert(END, f' Sabun Wajah     \t\t\t\t{ProdukList.detailPesanan("Sabun Wajah", "Jumlah")}\t\t\tRp. {ProdukList.detailPesanan("Sabun Wajah", "Harga")}\n')
+        if ProdukList.cekPesanan('Parfum') == True:
+            textarea.insert(END, f' Parfum     \t\t\t\t{ProdukList.detailPesanan("Parfum", "Jumlah")}\t\t\tRp. {ProdukList.detailPesanan("Parfum", "Harga")}\n')
+        if ProdukList.cekPesanan('Sampo') == True:
+            textarea.insert(END, f' Sampo     \t\t\t\t{ProdukList.detailPesanan("Sampo", "Jumlah")}\t\t\tRp. {ProdukList.detailPesanan("Sampo", "Harga")}\n')
+        if ProdukList.cekPesanan('Skincare') == True:
+            textarea.insert(END, f' Skincare     \t\t\t\t{ProdukList.detailPesanan("Skincare", "Jumlah")}\t\t\tRp. {ProdukList.detailPesanan("Skincare", "Harga")}\n')
+        if ProdukList.cekPesanan('Autan') == True:
+            textarea.insert(END, f' Autan     \t\t\t\t{ProdukList.detailPesanan("Autan", "Jumlah")}\t\t\tRp. {ProdukList.detailPesanan("Autan", "Harga")}\n')
+
+        # if soapprice != 0:
+        #     textarea.insert(END, f' Sabun Mandi     \t\t\t\t{bathsoapEntry.get()}\t\t\tRp. {soapprice}\n')
+        # if facescreamprice != 0 :
+        #     textarea.insert(END, f' Sabun Wajah     \t\t\t\t{facescreamEntry.get()}\t\t\tRp. {facescreamprice}\n')
+        # if fashwashprice != 0 :
+        #     textarea.insert(END, f' Parfum          \t\t\t\t{fashwashEntry.get()}\t\t\tRp. {fashwashprice}\n')
+        # if hairsprayprice != 0 :
+        #     textarea.insert(END, f' Sampo           \t\t\t\t{hairsprayEntry.get()}\t\t\tRp. {hairsprayprice}\n')
+        # if hairgelprice != 0 :
+        #     textarea.insert(END, f' Skincare        \t\t\t\t{hairgelEntry.get()}\t\t\tRp. {hairgelprice}\n')
+        # if bodylotionprice != 0 :
+        #     textarea.insert(END, f' Autan           \t\t\t\t{bodylotionEntry.get()}\t\t\tRp. {bodylotionprice}\n')
         
         #Grocery
-        if riceprice != 0:
-            textarea.insert(END, f' Beras           \t\t\t\t{riceEntry.get()}\t\t\tRp. {riceprice}\n')
-        if oilprice != 0 :
-            textarea.insert(END, f' Minyak          \t\t\t\t{oilEntry.get()}\t\t\tRp. {oilprice}\n')
-        if bumbuprice != 0 :
-            textarea.insert(END, f' Bumbu           \t\t\t\t{bumbuEntry.get()}\t\t\tRp. {bumbuprice}\n')
-        if gandumprice != 0 :
-            textarea.insert(END, f' Gandum          \t\t\t\t{gandumEntry.get()}\t\t\tRp. {gandumprice}\n')
-        if gulaprice != 0 :
-            textarea.insert(END, f' Gula            \t\t\t\t{gulaEntry.get()}\t\t\tRp. {gulaprice}\n')
-        if tehprice != 0 :
-            textarea.insert(END, f' Teh             \t\t\t\t{tehEntry.get()}\t\t\tRp. {tehprice}\n')
+        if ProdukList.cekPesanan('Nasi') == True:
+            textarea.insert(END, f' Nasi     \t\t\t\t{ProdukList.detailPesanan("Nasi", "Jumlah")}\t\t\tRp. {ProdukList.detailPesanan("Nasi", "Harga")}\n')
+        if ProdukList.cekPesanan('Minyak') == True:
+            textarea.insert(END, f' Minyak     \t\t\t\t{ProdukList.detailPesanan("Minyak", "Jumlah")}\t\t\tRp. {ProdukList.detailPesanan("Minyak", "Harga")}\n')
+        if ProdukList.cekPesanan('Bumbu') == True:
+            textarea.insert(END, f' Bumbu     \t\t\t\t{ProdukList.detailPesanan("Bumbu", "Jumlah")}\t\t\tRp. {ProdukList.detailPesanan("Bumbu", "Harga")}\n')
+        if ProdukList.cekPesanan('Gandum') == True:
+            textarea.insert(END, f' Gandum     \t\t\t\t{ProdukList.detailPesanan("Gandum", "Jumlah")}\t\t\tRp. {ProdukList.detailPesanan("Gandum", "Harga")}\n')
+        if ProdukList.cekPesanan('Gula') == True:
+            textarea.insert(END, f' Gula     \t\t\t\t{ProdukList.detailPesanan("Gula", "Jumlah")}\t\t\tRp. {ProdukList.detailPesanan("Gula", "Harga")}\n')
+        if ProdukList.cekPesanan('Teh') == True:
+            textarea.insert(END, f' Teh     \t\t\t\t{ProdukList.detailPesanan("Teh", "Jumlah")}\t\t\tRp. {ProdukList.detailPesanan("Teh", "Harga")}\n')
+        # if riceprice != 0:
+        #     textarea.insert(END, f' Beras           \t\t\t\t{riceEntry.get()}\t\t\tRp. {riceprice}\n')
+        # if oilprice != 0 :
+        #     textarea.insert(END, f' Minyak          \t\t\t\t{oilEntry.get()}\t\t\tRp. {oilprice}\n')
+        # if bumbuprice != 0 :
+        #     textarea.insert(END, f' Bumbu           \t\t\t\t{bumbuEntry.get()}\t\t\tRp. {bumbuprice}\n')
+        # if gandumprice != 0 :
+        #     textarea.insert(END, f' Gandum          \t\t\t\t{gandumEntry.get()}\t\t\tRp. {gandumprice}\n')
+        # if gulaprice != 0 :
+        #     textarea.insert(END, f' Gula            \t\t\t\t{gulaEntry.get()}\t\t\tRp. {gulaprice}\n')
+        # if tehprice != 0 :
+        #     textarea.insert(END, f' Teh             \t\t\t\t{tehEntry.get()}\t\t\tRp. {tehprice}\n')
 
         #ColdDrink
-        if fantaprice != 0:
-            textarea.insert(END, f' Fanta           \t\t\t\t{fantaEntry.get()}\t\t\tRp. {fantaprice}\n')
-        if powerfprice != 0 :
-            textarea.insert(END, f' Power F         \t\t\t\t{powerfEntry.get()}\t\t\tRp. {powerfprice}\n')
-        if spriteprice != 0 :
-            textarea.insert(END, f' Sprite          \t\t\t\t{spriteEntry.get()}\t\t\tRp. {spriteprice}\n')
-        if pepsiprice != 0 :
-            textarea.insert(END, f' Pepsi           \t\t\t\t{pepsiEntry.get()}\t\t\tRp. {pepsiprice}\n')
-        if cocacolaprice != 0 :
-            textarea.insert(END, f' Cocacola        \t\t\t\t{cocacolaEntry.get()}\t\t\tRp. {cocacolaprice}\n')
-        if kratindengprice != 0 :   
-            textarea.insert(END, f' Kratindeng      \t\t\t\t{kratindengEntry.get()}\t\t\tRp. {kratindengprice}\n')
+        if ProdukList.cekPesanan('Fanta') == True:
+            textarea.insert(END, f' Fanta     \t\t\t\t{ProdukList.detailPesanan("Fanta", "Jumlah")}\t\t\tRp. {ProdukList.detailPesanan("Fanta", "Harga")}\n')
+        if ProdukList.cekPesanan('Power F') == True:
+            textarea.insert(END, f' Power F     \t\t\t\t{ProdukList.detailPesanan("Power F", "Jumlah")}\t\t\tRp. {ProdukList.detailPesanan("Power F", "Harga")}\n')
+        if ProdukList.cekPesanan('Sprite') == True:
+            textarea.insert(END, f' Sprite     \t\t\t\t{ProdukList.detailPesanan("Sprite", "Jumlah")}\t\t\tRp. {ProdukList.detailPesanan("Sprite", "Harga")}\n')
+        if ProdukList.cekPesanan('Pepsi') == True:
+            textarea.insert(END, f' Pepsi     \t\t\t\t{ProdukList.detailPesanan("Pepsi", "Jumlah")}\t\t\tRp. {ProdukList.detailPesanan("Pepsi", "Harga")}\n')
+        if ProdukList.cekPesanan('Coca Cola') == True:
+            textarea.insert(END, f' Coca Cola     \t\t\t\t{ProdukList.detailPesanan("Coca Cola", "Jumlah")}\t\t\tRp. {ProdukList.detailPesanan("Coca Cola", "Harga")}\n')
+        if ProdukList.cekPesanan('Kratindeng') == True:
+            textarea.insert(END, f' Kratindeng     \t\t\t\t{ProdukList.detailPesanan("Kratindeng", "Jumlah")}\t\t\tRp. {ProdukList.detailPesanan("Kratindeng", "Harga")}\n')
+        # if fantaprice != 0:
+        #     textarea.insert(END, f' Fanta           \t\t\t\t{fantaEntry.get()}\t\t\tRp. {fantaprice}\n')
+        # if powerfprice != 0 :
+        #     textarea.insert(END, f' Power F         \t\t\t\t{powerfEntry.get()}\t\t\tRp. {powerfprice}\n')
+        # if spriteprice != 0 :
+        #     textarea.insert(END, f' Sprite          \t\t\t\t{spriteEntry.get()}\t\t\tRp. {spriteprice}\n')
+        # if pepsiprice != 0 :
+        #     textarea.insert(END, f' Pepsi           \t\t\t\t{pepsiEntry.get()}\t\t\tRp. {pepsiprice}\n')
+        # if cocacolaprice != 0 :
+        #     textarea.insert(END, f' Cocacola        \t\t\t\t{cocacolaEntry.get()}\t\t\tRp. {cocacolaprice}\n')
+        # if kratindengprice != 0 :   
+        #     textarea.insert(END, f' Kratindeng      \t\t\t\t{kratindengEntry.get()}\t\t\tRp. {kratindengprice}\n')
 
         textarea.insert(END, '\n===================================================================')
 
