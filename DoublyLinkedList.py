@@ -1,19 +1,18 @@
-import random
+import random # untuk membuat angka random buat nomor tagihan
 class Node:
-    def __init__(self, Kategori, NamaProduk=None, HargaProduk=None, KategoriProduk=None, pelanggan=None):
+    def __init__(self, Kategori, NamaProduk=None, HargaProduk=None, KategoriProduk=None):
         self.Kategori = Kategori
         self.NamaProduk = NamaProduk
         self.HargaProduk = HargaProduk
         self.KategoriProduk = KategoriProduk
         self.next = None
         self.prev = None
-        self.pelanggan = pelanggan
         self.quantity = None
 class DoublyLinkedList:
     def __init__(self):
         self.head = None
     def tambah_kategori(self, nama_kategori):
-        new_kategori = Node(nama_kategori, None, None, None, None)
+        new_kategori = Node(nama_kategori, None, None, None)
         if self.head == None:
             self.head = new_kategori
         else:
@@ -22,7 +21,7 @@ class DoublyLinkedList:
             self.head = new_kategori
 
     def tambah_awal_list(self, NamaProduk, HargaProduk, KategoriProduk):
-        new_Produk = Node(None, NamaProduk, HargaProduk, KategoriProduk, None)
+        new_Produk = Node(None, NamaProduk, HargaProduk, KategoriProduk)
         if self.head == None:
             self.head = new_Produk
         else:
@@ -31,7 +30,7 @@ class DoublyLinkedList:
             self.head = new_Produk
 
     def tambah_tengah_list_berdasarkan_kategori(self, Kategori, NamaProduk, HargaProduk, KategoriProduk): # Hanya bisa untuk Kategori tengah dan akhir
-        new_Produk = Node(None, NamaProduk, HargaProduk, KategoriProduk, None)
+        new_Produk = Node(None, NamaProduk, HargaProduk, KategoriProduk)
         if self.head == None:
             self.head = new_Produk
         else:
@@ -67,8 +66,8 @@ class DoublyLinkedList:
             return
         self.head = self.head.next
         self.head.prev = None
-
-    def hapus_tengah_list_berdasarkan_nama_Produk(self, nama_Produk):
+            
+    def hapus_list_berdasarkan_nama_Produk(self, nama_Produk):
         if self.head is None:
             print("List kosong, tidak ada yang dihapus")
             return
@@ -187,15 +186,15 @@ class DoublyLinkedList:
     
     def validasiproduk(self, NamaProduk=None):
         if self.head == None:
-            print('Produk Belum tersedia')
+            # print('Produk Belum tersedia')
             return True
         current = self.head
         while current:
             if current.NamaProduk == NamaProduk:
-                print('Produk Sudah tersedia')
+              #  print('Produk Sudah tersedia')
                 return False
             current = current.next
-        print('Produk Belum tersedia')
+        # print('Produk Belum tersedia')
         return True
     
     def JumlahSemuaProduk(self):
@@ -242,8 +241,7 @@ class DoublyLinkedList:
         current = self.head
         while current:
             if current.NamaProduk == nama:
-                current.pelanggan = current
-                current.pelanggan.quantity = jumlah
+                current.quantity = jumlah
             current = current.next
         
         return
@@ -255,7 +253,7 @@ class DoublyLinkedList:
         current = self.head
         while current:
             if current.NamaProduk == nama:
-                current.pelanggan = None
+                current.quantity = None
             current = current.next
         return
         # pilihan = int(input("Masukan Pilihan anda : "))
@@ -270,7 +268,7 @@ class DoublyLinkedList:
             return
         current = self.head
         while current:
-            current.pelanggan = None
+            current.quantity = None
             current = current.next
         print('Semua Produk Pelanggan telah terhapus')
         return
@@ -281,8 +279,8 @@ class DoublyLinkedList:
             return
         current = self.head
         while current:
-            if current.pelanggan != None:
-                print(f'Nama Produk : {current.pelanggan.NamaProduk}, Jumlah Produk : {current.pelanggan.quantity}')
+            if current.quantity != None:
+                print(f'Nama Produk : {current.NamaProduk}, Jumlah Produk : {current.quantity}')
             current = current.next            
 
     def cetak_tagihan(self):
@@ -308,9 +306,9 @@ class DoublyLinkedList:
         print('| ------------------------------------------------------------------------------ |')
         while current:
             if current.KategoriProduk == 'Kosmetik':
-                if current.pelanggan != None:
-                    print(f'| Nama Produk : {current.pelanggan.NamaProduk}, Quantity : {current.pelanggan.quantity},Harga Produk : {current.HargaProduk} ')
-                    totalHargaKosmetik += int(current.pelanggan.quantity)*current.HargaProduk
+                if current.quantity != None:
+                    print(f'| Nama Produk : {current.NamaProduk}, Quantity : {current.quantity},Harga Produk : {current.HargaProduk} ')
+                    totalHargaKosmetik += int(current.quantity)*current.HargaProduk
             current = current.next
         current = self.head
         print('| ------------------------------------------------------------------------------ |')
@@ -318,9 +316,9 @@ class DoublyLinkedList:
         print('| ------------------------------------------------------------------------------ |')
         while current:
             if current.KategoriProduk == 'BahanBaku':
-                if current.pelanggan != None:
-                    print(f'| Nama Produk : {current.pelanggan.NamaProduk}, Quantity : {current.pelanggan.quantity},Harga Produk : {current.HargaProduk} ')
-                    totalHargaBahanBaku += int(current.pelanggan.quantity)*current.HargaProduk
+                if current.quantity != None:
+                    print(f'| Nama Produk : {current.NamaProduk}, Quantity : {current.quantity},Harga Produk : {current.HargaProduk} ')
+                    totalHargaBahanBaku += int(current.quantity)*current.HargaProduk
             current = current.next
         current = self.head
         print('| ------------------------------------------------------------------------------ |')
@@ -328,9 +326,9 @@ class DoublyLinkedList:
         print('| ------------------------------------------------------------------------------ |')
         while current:
             if current.KategoriProduk == 'Minuman':
-                if current.pelanggan != None:
-                    print(f'| Nama Produk : {current.pelanggan.NamaProduk}, Quantity : {current.pelanggan.quantity},Harga Produk : {current.HargaProduk} ')
-                    totalHargaMinuman += int(current.pelanggan.quantity)*current.HargaProduk
+                if current.quantity != None:
+                    print(f'| Nama Produk : {current.NamaProduk}, Quantity : {current.quantity},Harga Produk : {current.HargaProduk} ')
+                    totalHargaMinuman += int(current.quantity)*current.HargaProduk
             current = current.next
         print('| ------------------------------------------------------------------------------ |')
         print('| \t\t\t\t   Total\t\t\t\t')
@@ -348,14 +346,14 @@ class DoublyLinkedList:
             return
         current = self.head
         while current:
-            if current.pelanggan != None:
-                if current.pelanggan.NamaProduk == namaProduk:
+            if current.quantity != None:
+                if current.NamaProduk == namaProduk:
                     if detailProduk == 'Harga':
-                        return current.pelanggan.HargaProduk
+                        return current.HargaProduk
                     if detailProduk == 'Jumlah':
-                        return current.pelanggan.quantity
+                        return current.quantity
                     if detailProduk == 'Kategori':
-                        return current.pelanggan.KategoriProduk
+                        return current.KategoriProduk
             current = current.next
         print('Detail Produk tidak ditemukan')
         return
@@ -366,8 +364,8 @@ class DoublyLinkedList:
             return False
         current = self.head
         while current:
-            if current.pelanggan != None:
-                if current.pelanggan.NamaProduk == nama:
+            if current.quantity != None:
+                if current.NamaProduk == nama:
                     return True
             current = current.next
         return False
@@ -474,7 +472,7 @@ class DoublyLinkedList:
 
 #     elif pilihan == 3:
 #         NamaProduk = input('Nama Produk yang akan dihapus : ')
-#         DLL.hapus_tengah_list_berdasarkan_nama_Produk(NamaProduk)
+#         DLL.hapus_list_berdasarkan_nama_Produk(NamaProduk)
 #         print('Produk berhasil dihapus')
 #     elif pilihan == 4:
 #         kategori = input('Masukan Kategori : ')

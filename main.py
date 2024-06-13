@@ -15,30 +15,6 @@ ProdukList.tambah_kategori('BahanBaku')
 ProdukList.tambah_kategori('Kosmetik')
 # End
 
-# Penambahan Barang
-# Kategori Kosmetik
-ProdukList.tambah_awal_list('Autan', 1000, 'Kosmetik')
-ProdukList.tambah_awal_list('Skincare', 15000, 'Kosmetik')
-ProdukList.tambah_awal_list('Sampo', 5000, 'Kosmetik')
-ProdukList.tambah_awal_list('Parfum', 7000, 'Kosmetik')
-ProdukList.tambah_awal_list('Sabun Wajah', 10000, 'Kosmetik')
-ProdukList.tambah_awal_list('Sabun Mandi', 3000, 'Kosmetik')
-# Kategori BahanBaku
-ProdukList.tambah_tengah_list_berdasarkan_kategori('BahanBaku', 'Teh', 3000, 'BahanBaku')
-ProdukList.tambah_tengah_list_berdasarkan_kategori('BahanBaku', 'Gula', 10000, 'BahanBaku')
-ProdukList.tambah_tengah_list_berdasarkan_kategori('BahanBaku', 'Gandum', 20000, 'BahanBaku')
-ProdukList.tambah_tengah_list_berdasarkan_kategori('BahanBaku', 'Bumbu', 5000, 'BahanBaku')
-ProdukList.tambah_tengah_list_berdasarkan_kategori('BahanBaku', 'Minyak', 30000, 'BahanBaku')
-ProdukList.tambah_tengah_list_berdasarkan_kategori('BahanBaku', 'Nasi', 25000, 'BahanBaku')
-# Kategori Minuman
-ProdukList.tambah_akhir_list('Fanta', 25000, 'Minuman')
-ProdukList.tambah_akhir_list('Power F', 1500, 'Minuman')
-ProdukList.tambah_akhir_list('Sprite', 5000, 'Minuman')
-ProdukList.tambah_akhir_list('Pepsi', 2000, 'Minuman')
-ProdukList.tambah_akhir_list('Coca Cola', 10000, 'Minuman')
-ProdukList.tambah_akhir_list('Kratindeng', 3000, 'Minuman')
-# End
-
 # ProdukList.cetak_list()
 
 if not os.path.exists(f'{const.PATHPARENTFILE}/Tagihan'):
@@ -57,7 +33,7 @@ def send_email():
             messagebox.showinfo('Sukses', 'Tagihan telah berhasi dikirim', parent=root1)
             root1.destroy()
         except:
-            messagebox.showerror('Error', 'Ada yang Error, Coba beberapa saat lagi', parent=1)
+            messagebox.showerror('Error', 'Ada yang Error, Coba beberapa saat lagi', parent=root1)
 
 
 
@@ -266,40 +242,46 @@ def total():
     
     # Masukan/Pengahapusan ke Produk List  
     if int(bathsoapEntry.get()) != 0:
+        if ProdukList.validasiproduk('Sabun Mandi') == True : ProdukList.tambah_awal_list('Sabun Mandi', 3000, 'Kosmetik')
         ProdukList.pesanan('Sabun Mandi', int(bathsoapEntry.get()))
         HargaKosmetik1 += ProdukList.detailPesanan('Sabun Mandi', 'Harga')*ProdukList.detailPesanan('Sabun Mandi', 'Jumlah')
     else:
-        ProdukList.hapusPesanan('Sabun Mandi')
+        if ProdukList.validasiproduk('Sabun Mandi') == False : ProdukList.hapus_list_berdasarkan_nama_Produk('Sabun Mandi')
         HargaKosmetik1 = 0
     if int(facescreamEntry.get()) != 0:
+        if ProdukList.validasiproduk('Sabun Wajah') == True : ProdukList.tambah_awal_list('Sabun Wajah', 10000, 'Kosmetik')
         ProdukList.pesanan('Sabun Wajah', int(facescreamEntry.get()))
         HargaKosmetik2 += ProdukList.detailPesanan('Sabun Wajah', 'Harga')*ProdukList.detailPesanan('Sabun Wajah', 'Jumlah')
     else:
-        ProdukList.hapusPesanan('Sabun Wajah')
+        if ProdukList.validasiproduk('Sabun Wajah') == False : ProdukList.hapus_list_berdasarkan_nama_Produk('Sabun Wajah')
         HargaKosmetik2 = 0
     if int(fashwashEntry.get()) != 0:
+        if ProdukList.validasiproduk('Parfum') == True : ProdukList.tambah_awal_list('Parfum', 7000, 'Kosmetik')
         ProdukList.pesanan('Parfum', int(fashwashEntry.get()))
         HargaKosmetik3 += ProdukList.detailPesanan('Parfum', 'Harga')*ProdukList.detailPesanan('Parfum', 'Jumlah')
     else:
-        ProdukList.hapusPesanan('Parfum')
+        if ProdukList.validasiproduk('Parfum') == False : ProdukList.hapus_list_berdasarkan_nama_Produk('Parfum')
         HargaKosmetik3 = 0
     if int(hairsprayEntry.get()) != 0:
+        if ProdukList.validasiproduk('Sampo') == True : ProdukList.tambah_awal_list('Sampo', 5000, 'Kosmetik')
         ProdukList.pesanan('Sampo', int(hairsprayEntry.get()))
         HargaKosmetik4 += ProdukList.detailPesanan('Sampo', 'Harga')*ProdukList.detailPesanan('Sampo', 'Jumlah')
     else:
-        ProdukList.hapusPesanan('Sampo')
+        if ProdukList.validasiproduk('Sampo') == False : ProdukList.hapus_list_berdasarkan_nama_Produk('Sampo')
         HargaKosmetik4 = 0
     if int(hairgelEntry.get()) != 0:
+        if ProdukList.validasiproduk('Skincare') == True : ProdukList.tambah_awal_list('Skincare', 15000, 'Kosmetik')
         ProdukList.pesanan('Skincare', int(hairgelEntry.get()))
         HargaKosmetik5 += ProdukList.detailPesanan('Skincare', 'Harga')*ProdukList.detailPesanan('Skincare', 'Jumlah')
     else:
-        ProdukList.hapusPesanan('Skincare')
+        if ProdukList.validasiproduk('Skincare') == False : ProdukList.hapus_list_berdasarkan_nama_Produk('Skincare')
         HargaKosmetik5 = 0
     if int(bodylotionEntry.get()) != 0:
+        if ProdukList.validasiproduk('Autan') == True : ProdukList.tambah_awal_list('Autan', 1000, 'Kosmetik')
         ProdukList.pesanan('Autan', int(bodylotionEntry.get()))
         HargaKosmetik6 += ProdukList.detailPesanan('Autan', 'Harga')*ProdukList.detailPesanan('Autan', 'Jumlah')
     else:
-        ProdukList.hapusPesanan('Autan')
+        if ProdukList.validasiproduk('Autan') == False : ProdukList.hapus_list_berdasarkan_nama_Produk('Autan')
         HargaKosmetik6 = 0
     
 
@@ -333,40 +315,46 @@ def total():
     
     # Masukan/Pengahapusan ke Produk List  
     if int(riceEntry.get()) != 0:
+        if ProdukList.validasiproduk('Nasi') == True : ProdukList.tambah_tengah_list_berdasarkan_kategori('BahanBaku','Nasi', 25000, 'BahanBaku')
         ProdukList.pesanan('Nasi', int(riceEntry.get()))
         HargaBahanBaku1 += ProdukList.detailPesanan('Nasi', 'Harga')*ProdukList.detailPesanan('Nasi', 'Jumlah')
     else:
-        ProdukList.hapusPesanan('Nasi')
+        if ProdukList.validasiproduk('Nasi') == False : ProdukList.hapus_list_berdasarkan_nama_Produk('Nasi')
         HargaBahanBaku1 = 0
     if int(oilEntry.get()) != 0:
+        if ProdukList.validasiproduk('Minyak') == True : ProdukList.tambah_tengah_list_berdasarkan_kategori('BahanBaku','Minyak', 30000, 'BahanBaku')
         ProdukList.pesanan('Minyak', int(oilEntry.get()))
         HargaBahanBaku2 += ProdukList.detailPesanan('Minyak', 'Harga')*ProdukList.detailPesanan('Minyak', 'Jumlah')
     else:
-        ProdukList.hapusPesanan('Minyak')
+        if ProdukList.validasiproduk('Minyak') == False : ProdukList.hapus_list_berdasarkan_nama_Produk('Minyak')
         HargaBahanBaku2 = 0
     if int(bumbuEntry.get()) != 0:
+        if ProdukList.validasiproduk('Bumbu') == True : ProdukList.tambah_tengah_list_berdasarkan_kategori('BahanBaku','Bumbu', 5000, 'BahanBaku')
         ProdukList.pesanan('Bumbu', int(bumbuEntry.get()))
         HargaBahanBaku3 += ProdukList.detailPesanan('Bumbu', 'Harga')*ProdukList.detailPesanan('Bumbu', 'Jumlah')
     else:
-        ProdukList.hapusPesanan('Bumbu')
+        if ProdukList.validasiproduk('Bumbu') == False : ProdukList.hapus_list_berdasarkan_nama_Produk('Bumbu')
         HargaBahanBaku3 = 0
     if int(gandumEntry.get()) != 0:
+        if ProdukList.validasiproduk('Gandum') == True : ProdukList.tambah_tengah_list_berdasarkan_kategori('BahanBaku','Gandum', 20000, 'BahanBaku')
         ProdukList.pesanan('Gandum', int(gandumEntry.get()))
         HargaBahanBaku4 += ProdukList.detailPesanan('Gandum', 'Harga')*ProdukList.detailPesanan('Gandum', 'Jumlah')
     else:
-        ProdukList.hapusPesanan('Gandum')
+        if ProdukList.validasiproduk('Gandum') == False : ProdukList.hapus_list_berdasarkan_nama_Produk('Gandum')
         HargaBahanBaku4 = 0
     if int(gulaEntry.get()) != 0:
+        if ProdukList.validasiproduk('Gula') == True : ProdukList.tambah_tengah_list_berdasarkan_kategori('BahanBaku','Gula', 10000, 'BahanBaku')
         ProdukList.pesanan('Gula', int(gulaEntry.get()))
         HargaBahanBaku5 += ProdukList.detailPesanan('Gula', 'Harga')*ProdukList.detailPesanan('Gula', 'Jumlah')
     else:
-        ProdukList.hapusPesanan('Gula')
+        if ProdukList.validasiproduk('Gula') == False : ProdukList.hapus_list_berdasarkan_nama_Produk('Gula')
         HargaBahanBaku5 = 0
     if int(tehEntry.get()) != 0:
+        if ProdukList.validasiproduk('Teh') == True : ProdukList.tambah_tengah_list_berdasarkan_kategori('BahanBaku','Teh', 3000, 'BahanBaku')
         ProdukList.pesanan('Teh', int(tehEntry.get()))
         HargaBahanBaku6 += ProdukList.detailPesanan('Teh', 'Harga')*ProdukList.detailPesanan('Teh', 'Jumlah')
     else:
-        ProdukList.hapusPesanan('Teh')
+        if ProdukList.validasiproduk('Teh') == False : ProdukList.hapus_list_berdasarkan_nama_Produk('Teh')
         HargaBahanBaku6 = 0
 
     # riceprice = int(riceEntry.get())*25000
@@ -392,42 +380,51 @@ def total():
     
     # Masukan/Pengahapusan ke Produk List  
     if int(fantaEntry.get()) != 0:
+        if ProdukList.validasiproduk('Fanta') == True : ProdukList.tambah_akhir_list('Fanta', 25000, 'Minuman')
         ProdukList.pesanan('Fanta', int(fantaEntry.get()))
         HargaMinuman1 += ProdukList.detailPesanan('Fanta', 'Harga')*ProdukList.detailPesanan('Fanta', 'Jumlah')
     else:
-        ProdukList.hapusPesanan('Fanta')
+        if ProdukList.validasiproduk('Fanta') == False : ProdukList.hapus_list_berdasarkan_nama_Produk('Fanta')
         HargaMinuman1 = 0
     if int(powerfEntry.get()) != 0:
+        if ProdukList.validasiproduk('Power F') == True : ProdukList.tambah_akhir_list('Power F', 1500, 'Minuman')
         ProdukList.pesanan('Power F', int(powerfEntry.get()))
         HargaMinuman2 += ProdukList.detailPesanan('Power F', 'Harga')*ProdukList.detailPesanan('Power F', 'Jumlah')
     else:
-        ProdukList.hapusPesanan('Power F')
+        if ProdukList.validasiproduk('Power F') == False : ProdukList.hapus_list_berdasarkan_nama_Produk('Power F')
         HargaMinuman2 = 0
     if int(spriteEntry.get()) != 0:
+        if ProdukList.validasiproduk('Sprite') == True : ProdukList.tambah_akhir_list('Sprite', 5000, 'Minuman')
         ProdukList.pesanan('Sprite', int(spriteEntry.get()))
         HargaMinuman3 += ProdukList.detailPesanan('Sprite', 'Harga')*ProdukList.detailPesanan('Sprite', 'Jumlah')
     else:
-        ProdukList.hapusPesanan('Sprite')
+        if ProdukList.validasiproduk('Sprite') == False : ProdukList.hapus_list_berdasarkan_nama_Produk('Sprite')
         HargaMinuman3 = 0
     if int(pepsiEntry.get()) != 0:
+        if ProdukList.validasiproduk('Pepsi') == True : ProdukList.tambah_akhir_list('Pepsi', 2000, 'Minuman')
         ProdukList.pesanan('Pepsi', int(pepsiEntry.get()))
         HargaMinuman4 += ProdukList.detailPesanan('Pepsi', 'Harga')*ProdukList.detailPesanan('Pepsi', 'Jumlah')
     else:
-        ProdukList.hapusPesanan('Pepsi')
+        if ProdukList.validasiproduk('Pepsi') == False : ProdukList.hapus_list_berdasarkan_nama_Produk('Pepsi')
         HargaMinuman4 = 0
     if int(cocacolaEntry.get()) != 0:
+        if ProdukList.validasiproduk('Coca Cola') == True : ProdukList.tambah_akhir_list('Coca Cola', 10000, 'Minuman')
         ProdukList.pesanan('Coca Cola', int(cocacolaEntry.get()))
         HargaMinuman5 += ProdukList.detailPesanan('Coca Cola', 'Harga')*ProdukList.detailPesanan('Coca Cola', 'Jumlah')
     else:
-        ProdukList.hapusPesanan('Coca Cola')
+        if ProdukList.validasiproduk('Coca Cola') == False : ProdukList.hapus_list_berdasarkan_nama_Produk('Coca Cola')
         HargaMinuman5 = 0
     if int(kratindengEntry.get()) != 0:
+        if ProdukList.validasiproduk('Kratindeng') == True : ProdukList.tambah_akhir_list('Kratindeng', 3000, 'Minuman')
         ProdukList.pesanan('Kratindeng', int(kratindengEntry.get()))
         HargaMinuman6 += ProdukList.detailPesanan('Kratindeng', 'Harga')*ProdukList.detailPesanan('Kratindeng', 'Jumlah')
     else:
-        ProdukList.hapusPesanan('Kratindeng')
+        if ProdukList.validasiproduk('Kratindeng') == False : ProdukList.hapus_list_berdasarkan_nama_Produk('Kratindeng')
         HargaMinuman6 = 0
 
+    # print()
+    # print('List Produk')
+    # ProdukList.cetak_list()
     # fantaprice = int(fantaEntry.get())*25000
     # powerfprice = int(powerfEntry.get())*30000
     # spriteprice = int(spriteEntry.get())*5000
@@ -542,15 +539,15 @@ def bill_area():
 
 
         if cosmentictaxEntry.get() != 'Rp. 0.0' :
-            textarea.insert(END, f'\n Pajak Kosmetik  \t\t\t\t\t\t\t{cosmentictaxEntry.get()}')
+            textarea.insert(END, f'\n Pajak Kosmetik  \t\t\t\t\t\t{cosmentictaxEntry.get()}')
         if grocertaxEntry.get() != 'Rp. 0.0' :
-            textarea.insert(END, f'\n Pajak Bahan baku\t\t\t\t\t\t\t{grocertaxEntry.get()}')
+            textarea.insert(END, f'\n Pajak Bahan baku\t\t\t\t\t\t{grocertaxEntry.get()}')
         if drinktaxEntry.get() != 'Rp. 0.0' :
-            textarea.insert(END, f'\n Pajak Minuman   \t\t\t\t\t\t\t{drinktaxEntry.get()}')
+            textarea.insert(END, f'\n Pajak Minuman   \t\t\t\t\t\t{drinktaxEntry.get()}')
 
         textarea.insert(END, '\n===================================================================')
         totalbill=totalcosmeticprice+totalgroceryprice+totalcolddrinkprice+totalcosmetictax+totalgrocerytax+totalcolddrinktax
-        textarea.insert(END, f'\n Total Tagihan   \t\t\t\t\t\t\tRP. {totalbill}')
+        textarea.insert(END, f'\n Total Tagihan   \t\t\t\t\t\tRP. {totalbill}')
         textarea.insert(END, '\n===================================================================')
 
         save_bill()
@@ -559,6 +556,7 @@ def bill_area():
 root=Tk()
 root.title('System Manajemen Retail')
 root.geometry('1300x600')
+root.resizable(False, False)
 root.configure(background=const.dark)
 root.iconbitmap(f'{const.PATHPARENTFILE}/icon.ico')
 headingLabel = Label(root, text='System Manajemen Retail', font=('Arial',24,'bold')
@@ -699,14 +697,12 @@ fantaEntry = Entry(colddrinkFrame, font=('Arial', 12), width=10, bd=5)
 fantaEntry.grid(row=0, column=1, padx=10)
 fantaEntry.insert(0, 0)
 
-
 powerfLabel = Label(colddrinkFrame, text="Power F", font=('Arial', 12, 'bold'), bg=const.primary, fg=const.light)
 powerfLabel.grid(row=1, column=0, pady=9, padx=10, sticky='w')
 
 powerfEntry = Entry(colddrinkFrame, font=('Arial', 12), width=10, bd=5)
 powerfEntry.grid(row=1, column=1, padx=10)
 powerfEntry.insert(0, 0)
-
 
 spriteLabel = Label(colddrinkFrame, text="Sprite", font=('Arial', 12, 'bold'), bg=const.primary, fg=const.light)
 spriteLabel.grid(row=2, column=0, pady=9, padx=10, sticky='w')
@@ -715,7 +711,6 @@ spriteEntry = Entry(colddrinkFrame, font=('Arial', 12), width=10, bd=5)
 spriteEntry.grid(row=2, column=1, padx=10, sticky='w')
 spriteEntry.insert(0, 0)
 
-
 pepsiLabel = Label(colddrinkFrame, text="Pepsi", font=('Arial', 12, 'bold'), bg=const.primary, fg=const.light)
 pepsiLabel.grid(row=3, column=0, pady=9, padx=10, sticky='w')
 
@@ -723,14 +718,12 @@ pepsiEntry = Entry(colddrinkFrame, font=('Arial', 12), width=10, bd=5)
 pepsiEntry.grid(row=3, column=1, padx=10, sticky='w')
 pepsiEntry.insert(0, 0)
 
-
 cocacolaLabel = Label(colddrinkFrame, text="Coca Cola", font=('Arial', 12, 'bold'), bg=const.primary, fg=const.light)
 cocacolaLabel.grid(row=4, column=0, pady=9, padx=10, sticky='w')
 
 cocacolaEntry = Entry(colddrinkFrame, font=('Arial', 12), width=10, bd=5)
 cocacolaEntry.grid(row=4, column=1, padx=10, sticky='w')
 cocacolaEntry.insert(0, 0)
-
 
 kratindengLabel = Label(colddrinkFrame, text="kratindeng", font=('Arial', 12, 'bold'), bg=const.primary, fg=const.light)
 kratindengLabel.grid(row=5, column=0, pady=9, padx=10, sticky='w')
@@ -744,7 +737,6 @@ billframe.grid(row=0, column=3, padx=10)
 
 bilareaLabel=Label(billframe, text='Struct Tagihan', font=('Arial', 15, 'bold'), bd=7, relief=GROOVE)
 bilareaLabel.pack(fill=X)
-
 
 scrollbar=Scrollbar(billframe, orient=VERTICAL)
 scrollbar.pack(side=RIGHT, fill=Y)
@@ -800,18 +792,17 @@ buttomFrame.grid(row=0, column=4, rowspan=3)
 totalButton=Button(buttomFrame, text='Total', font=('Arial', 14 , 'bold'), bg=const.primary, fg=const.light, bd=5,width=10, pady=10, command=total)
 totalButton.grid(row=6, column=0, pady=20, padx=5)
 
-billButton=Button(buttomFrame, text='Tagih', font=('Arial', 14 , 'bold'), bg=const.primary, fg=const.light, bd=5,width=9, pady=10, command=bill_area)
-billButton.grid(row=6, column=1, pady=20, padx=5)
+tagihanButton=Button(buttomFrame, text='Tagih', font=('Arial', 14 , 'bold'), bg=const.primary, fg=const.light, bd=5,width=9, pady=10, command=bill_area)
+tagihanButton.grid(row=6, column=1, pady=20, padx=5)
 
 emailButton=Button(buttomFrame, text='Email', font=('Arial', 14 , 'bold'), bg=const.primary, fg=const.light, bd=5,width=9, pady=10, command=send_email)
 emailButton.grid(row=6, column=2, pady=20, padx=5)
 
-printButton=Button(buttomFrame, text='Cetak', font=('Arial', 14 , 'bold'), bg=const.primary, fg=const.light, bd=5,width=9, pady=10, command=print_bill)
-printButton.grid(row=6, column=4, pady=20, padx=5)
+CetakButton=Button(buttomFrame, text='Cetak', font=('Arial', 14 , 'bold'), bg=const.primary, fg=const.light, bd=5,width=9, pady=10, command=print_bill)
+CetakButton.grid(row=6, column=4, pady=20, padx=5)
 
-clearButton=Button(buttomFrame, text='bersih', font=('Arial', 14 , 'bold'), bg=const.primary, fg=const.light, bd=5,width=9, pady=10, command=clear)
-clearButton.grid(row=6, column=5, pady=20, padx=5)
-
+bersihButton=Button(buttomFrame, text='Bersih', font=('Arial', 14 , 'bold'), bg=const.primary, fg=const.light, bd=5,width=9, pady=10, command=clear)
+bersihButton.grid(row=6, column=5, pady=20, padx=5)
 
 
 

@@ -4,7 +4,7 @@ import pathlib
 
 # PARENT PATH FILE
 PATHPARENTFILE = pathlib.Path(__file__).parent.resolve()
-passwordapp = "hrjn mlie pamy posx"
+passwordapp = "agzd wkxx vhxf bgza"
 # COLOR
 primary = '#0d6efd'
 secondary = '#6c757d'
