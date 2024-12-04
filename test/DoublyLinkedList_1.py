@@ -146,30 +146,48 @@ class DoublyLinkedList:
                      return i
                  i = i + 1
                  current = current.next
-            return None   
+            return None 
+    def sort(self):
+        if self.head is None:
+            return
+        else:
+            current = self.head
+            while current.next:
+                index = current.next
+                while index:
+                    if current.data > index.data:
+                        temp = current.data
+                        current.data = index.data
+                        index.data = temp
+                    index = index.next
+                current = current.next
 # Contoh penggunaan
 if __name__ == "__main__":
     linked_list = DoublyLinkedList()
-
-    linked_list.tambah_di_belakang(0)
-    linked_list.tambah_di_belakang(20)
-    linked_list.tambah_di_belakang(30)
-    linked_list.tambah_di_depan(5)
-    linked_list.tambah_di_tengah(1, 15)
-    linked_list.tambah_di_tengah(0, 7)
+#    linked_list.tambah_di_belakang(1)
+    linked_list.tambah_di_belakang('A')
+    linked_list.tambah_di_belakang('B')
+    linked_list.tambah_di_belakang('C')
+    linked_list.tambah_di_depan('Z')
+    linked_list.tambah_di_tengah(1, 'B')
+    linked_list.tambah_di_tengah(2, 'D')
 
     # print("Linked list setelah penambahan:")
     # linked_list.cetak_list_awal()
     
-    print(linked_list.cari_list(30))
+    # print(linked_list.cari_list(30))
     linked_list.cetak_list()
     # linked_list.cetak_list_tengah(2)
     # linked_list.cetak_list_belakang()
 
+    linked_list.sort()
+    print('Setelah diurutkan')
+    linked_list.sort()
+    linked_list.cetak_list()
     linked_list.hapus_di_depan()
     linked_list.hapus_di_depan()
     # linked_list.hapus_di_tengah(4)
     # linked_list.hapus_di_belakang()
 
     # print("\nLinked list setelah penghapusan:")
-    linked_list.cetak_list()
+    # linked_list.cetak_list()

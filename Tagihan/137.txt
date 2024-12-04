@@ -1,0 +1,17 @@
+======================Selamat datang pelanggan=====================
+
+ No. Tagihan: 137 
+
+ Nama Pelanggan: 1 
+
+ No. HP Pelanggan: 1 
+
+===================================================================
+ Produk			     Kuantitas				  Harga
+===================================================================
+ Sabun Mandi     				1			Rp. 3000
+ Sabun Wajah     				1			Rp. 10000
+ Bumbu     				1			Rp. 5000
+ Gandum     				1			Rp. 20000
+ Pepsi     				1			Rp. 2000
+
